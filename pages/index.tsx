@@ -124,7 +124,7 @@ const Home: NextPage = () => {
               <label
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `${process.env.NEXT_PUBLIC_APP_URL}/${shareRecordID}`
+                    `${process.env.NEXT_PUBLIC_APP_URL}${shareRecordID}`
                     );
                   setCopyButtonText("Copied!");
                   setTimeout(() => {
