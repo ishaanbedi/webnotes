@@ -47,7 +47,6 @@ const Home: NextPage = () => {
     const { data } = await axios.get(`/api/share-note`, {
       params: {
         note: text,
-        secret: process.env.NEXT_PUBLIC_SHARE_SECRET,
       },
     });
     var label = document.createElement("label");
