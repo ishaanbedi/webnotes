@@ -113,18 +113,18 @@ const Home: NextPage = () => {
             Awesome! Here&apos;s your shareable link for this note.
           </h3>
           <Link
-            href={`${process.env.NEXT_PUBLIC_APP_URL}/${shareRecordID}`}
+            href={`https://webnotes.ishn.xyz/${shareRecordID}`}
             target={"_blank"}
             className="link"
           >
-            <p className="py-4">{process.env.NEXT_PUBLIC_APP_URL}/{shareRecordID}</p>
+            <p className="py-4">webnotes.ishn.xyz/{shareRecordID}</p>
           </Link>
           <span className="flex justify-end space-x-3">
             <div className="modal-action">
               <label
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `${process.env.NEXT_PUBLIC_APP_URL}${shareRecordID}`
+                    `https://webnotes.ishn.xyz/${shareRecordID}`
                     );
                   setCopyButtonText("Copied!");
                   setTimeout(() => {
