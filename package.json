@@ -10,7 +10,6 @@
     "@xata.io/client": "^0.21.6",
     "axios": "^1.2.2",
     "daisyui": "^2.46.1",
-    "jsonwebtoken": "^9.0.0",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
