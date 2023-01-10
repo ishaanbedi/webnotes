@@ -52,7 +52,7 @@ const Home: NextPage<Props> = (props) => {
       </header>
       <textarea
         className="min-h-screen w-screen px-5 pt-3 outline-none resize-none bg-base-200 text-base-content"
-        placeholder="Start typing here..."
+        placeholder="The person who shared this note with you has not written anything in this note."
         value={note}
         onChange={(e) => setNote(e.target.value)}
         disabled
