@@ -10,10 +10,10 @@ I built this app mostly because of my personal use case but I hope it will be he
 - Supports offline working 📱
 - Super fast performance 🚀
 
-## Installation
+## Usage and Installation
 Simply visit the website ([webnotes.ishn.xyz](https://webnotes.ishn.xyz/)) to start using `webnotes`.
 
-Also, you can install `webnotes` on your mobile device or desktop as well. Simply follow the prompts on ([webnotes.ishn.xyz](https://webnotes.ishn.xyz/)) to install the app 📲
+You can install `webnotes` on your mobile device or desktop as well. Simply follow the prompts on ([webnotes.ishn.xyz](https://webnotes.ishn.xyz/)) to install the app 📲
 
 
 ## License
