@@ -21,10 +21,15 @@ const Navbar = ({
       <ul className="flex space-x-3 font-semibold">
         <span className={`${hideButton ? "hidden" : "block"} flex space-x-3`}>
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className={`${shareLoading ? "cursor-not-allowed text-base-300" : "cursor-pointer "}`}>
-              {
-                shareLoading ? "Loading" : "Menu"
-              }
+            <label
+              tabIndex={0}
+              className={`${
+                shareLoading
+                  ? "cursor-not-allowed text-base-300"
+                  : "cursor-pointer "
+              }`}
+            >
+              {shareLoading ? "Loading" : "Menu"}
             </label>
             <ul
               tabIndex={0}
