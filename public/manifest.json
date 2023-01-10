@@ -1,0 +1,15 @@
+{
+  "name": "webnotes",
+  "short_name": "wn",
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icon.png"
+    }
+  ]
+}

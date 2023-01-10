@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useState } from "react";
 
 const Modals = ({
   shareRecordID,
@@ -97,7 +98,7 @@ const Modals = ({
           <div className="form-control w-full py-3">
             <input
               type="text"
-              placeholder="webnote"
+              placeholder="Enter the file name here..."
               value={downloadFileName}
               className="input input-bordered w-full"
               onChange={(e) => setDownloadFileName(e.target.value)}
