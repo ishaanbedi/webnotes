@@ -9,6 +9,8 @@ I built this app mostly because of my personal use case but I hope it will be he
 - Download notes to your system 💾
 - Supports offline working 📱
 - Super fast performance 🚀
+- Supports Markdown preview ⚡️
+
 
 ## Usage and Installation
 Simply visit the website ([webnotes.ishn.xyz](https://webnotes.ishn.xyz/)) to start using `webnotes`.
