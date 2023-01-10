@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
-
 const Modals = ({
   shareRecordID,
   setCopyButtonText,
@@ -8,6 +6,7 @@ const Modals = ({
   downloadFileName,
   setDownloadFileName,
   text,
+  markdownMode,
 }: {
   shareRecordID: string;
   setCopyButtonText: (value: string) => void;
@@ -15,6 +14,7 @@ const Modals = ({
   downloadFileName: string;
   setDownloadFileName: (value: string) => void;
   text: string;
+  markdownMode: boolean;
 }) => {
   return (
     <div>
@@ -68,6 +68,17 @@ const Modals = ({
           <ul className="list-disc list-inside">
             <li>Share your notes with others 🤝</li>
             <li>Download notes to your system 💾</li>
+            <li>
+              Supports{" "}
+              <Link
+                href="https://www.markdownguide.org/getting-started/#what-is-markdown"
+                target={"_blank"}
+                className="link "
+              >
+                Markdown
+              </Link>{" "}
+              preview ⚡️
+            </li>
             <li>Supports offline working 📱</li>
           </ul>
           <span className="flex justify-end space-x-3">
@@ -94,7 +105,9 @@ const Modals = ({
       />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Download the note as a file.</h3>
+          <h3 className="font-bold text-lg">
+            Download the note as a {markdownMode ? "Markdown" : "Text"} file
+          </h3>
           <div className="form-control w-full py-3">
             <input
               type="text"
@@ -125,7 +138,7 @@ const Modals = ({
                       downloadFileName.length === 0
                         ? "webnote"
                         : downloadFileName
-                    }.txt`
+                    }.${!markdownMode ? "txt" : "md"}`
                   );
                   element.style.display = "none";
                   document.body.appendChild(element);

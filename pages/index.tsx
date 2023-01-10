@@ -13,13 +13,14 @@ const Home: NextPage = () => {
   const [shareRecordID, setShareRecordID] = useState("");
   const [copyButtonText, setCopyButtonText] = useState("Copy");
   const [downloadFileName, setDownloadFileName] = useState("");
+  const [markdownMode, setMarkdownMode] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("webnote-text") === null) {
       setHideButton(true);
     } else {
       setHideButton(false);
     }
-  }, [text]);
+  }, [text, markdownMode]);
   useEffect(() => {
     if (localStorage.getItem("webnote-text") === null) {
       setText("");
@@ -28,10 +29,14 @@ const Home: NextPage = () => {
     }
   }, []);
   const handleTextChange = (value: string) => {
+    if (value === "") {
+      clearTextArea();
+      return;
+    }
     localStorage.setItem("webnote-text", JSON.stringify(value));
     setText(value);
   };
-  const downloadTextAsFile = (text: string) => {
+  const downloadTextAsFile = () => {
     var label = document.createElement("label");
     label.htmlFor = "download-file-modal";
     document.body.appendChild(label);
@@ -83,9 +88,15 @@ const Home: NextPage = () => {
           shareLoading={shareLoading}
           hideButton={hideButton}
           text={text}
+          markdownMode={markdownMode}
+          setMarkdownMode={setMarkdownMode}
         />
       </header>
-      <NoteArea text={text} handleTextChange={handleTextChange} />
+      <NoteArea
+        markdownMode={markdownMode}
+        text={text}
+        handleTextChange={handleTextChange}
+      />
       <Modals
         shareRecordID={shareRecordID}
         setCopyButtonText={setCopyButtonText}
@@ -93,6 +104,7 @@ const Home: NextPage = () => {
         downloadFileName={downloadFileName}
         setDownloadFileName={setDownloadFileName}
         text={text}
+        markdownMode={markdownMode}
       />
     </div>
   );

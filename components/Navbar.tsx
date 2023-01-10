@@ -1,11 +1,13 @@
 const Navbar = ({
   hideButton,
   text,
-  downloadTextAsFile,
   clearTextArea,
   shareNote,
   shareLoading,
+  downloadTextAsFile,
   showAbout,
+  markdownMode,
+  setMarkdownMode,
 }: {
   hideButton: boolean;
   text: string;
@@ -14,9 +16,11 @@ const Navbar = ({
   shareNote: () => Promise<void>;
   shareLoading: boolean;
   showAbout: () => void;
+  markdownMode: boolean;
+  setMarkdownMode: (markdownMode: boolean) => void;
 }) => {
   return (
-    <div className="py-4 flex justify-between px-6 sticky w-screen bg-primary text-primary-content">
+    <div className="py-4 flex justify-between items-center px-6 sticky w-screen bg-primary text-primary-content">
       <h1 className="text-xl font-bold">webnotes 🚀</h1>
       <ul className="flex space-x-3 font-semibold">
         <span className={`${hideButton ? "hidden" : "block"} flex space-x-3`}>
@@ -56,6 +60,18 @@ const Navbar = ({
                   onClick={shareNote}
                 >
                   Share
+                </button>
+              </li>
+              <li onClick={() => setMarkdownMode(!markdownMode)}>
+                <button
+                  className={`${
+                    markdownMode
+                      ? "bg-primary text-primary-content"
+                      : "bg-primary-content text-primary"
+                  } gap-2 flex justify-between`}
+                >
+                  Markdown Preview
+                
                 </button>
               </li>
             </ul>

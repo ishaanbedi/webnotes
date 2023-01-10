@@ -3,7 +3,12 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { Context } from "vm";
 import Head from "next/head";
-import Link from "next/link";
+import NavbarShared from "../components/NavbarShared";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 interface Props {
   note: string;
 }
@@ -25,38 +30,50 @@ const Home: NextPage<Props> = (props) => {
     label.click();
     document.body.removeChild(label);
   };
+  const showAbout = () => {
+    var label = document.createElement("label");
+    label.htmlFor = "about-modal";
+    document.body.appendChild(label);
+    label.classList.add("hidden");
+    label.click();
+    document.body.removeChild(label);
+  };
+
+  const [markdownMode, setMarkdownMode] = useState(false);
+
   return (
     <div>
       <Head>
         <title>webnotes | Shared Note</title>
       </Head>
       <header>
-        <div className="py-4 flex justify-between px-5 sticky w-screen bg-primary text-primary-content">
-          <Link href="/">
-            <h1 className="text-xl font-bold">webnotes | Shared Note</h1>
-          </Link>
-          <ul className="flex space-x-3">
-            <span className={` flex space-x-3`}>
-              <li>
-                <button
-                  onClick={() => {
-                    downloadTextAsFile(note);
-                  }}
-                >
-                  Download
-                </button>
-              </li>
-            </span>
-          </ul>
-        </div>
+        <NavbarShared
+          showAbout={showAbout}
+          markdownMode={markdownMode}
+          setMarkdownMode={setMarkdownMode}
+          downloadTextAsFile={downloadTextAsFile}
+          text={note}
+        />
       </header>
-      <textarea
-        className="min-h-screen w-screen px-5 pt-3 outline-none resize-none bg-base-200 text-base-content"
-        placeholder="The person who shared this note with you has not written anything in this note."
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-        disabled
-      />
+      <section>
+        {markdownMode ? (
+          <ReactMarkdown
+            className="prose max-w-none min-h-screen w-screen px-5 pt-3 outline-none resize-none	bg-base-200 text-base-content"
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+          >
+            {note}
+          </ReactMarkdown>
+        ) : (
+          <textarea
+            id="textarea"
+            className="min-h-screen w-screen px-5 pt-3 outline-none resize-none	bg-base-200 text-base-content"
+            placeholder="Start typing here..."
+            value={note}
+            disabled
+          />
+        )}
+      </section>
       <input
         type="checkbox"
         id="download-file-modal"
@@ -65,7 +82,8 @@ const Home: NextPage<Props> = (props) => {
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">
-            Download the shared note as a file.
+            Download the shared note as a {markdownMode ? "Markdown" : "Text"}{" "}
+            file.
           </h3>
           <div className="form-control w-full py-3">
             <input
@@ -98,7 +116,7 @@ const Home: NextPage<Props> = (props) => {
                       downloadFileName.length === 0
                         ? "webnote"
                         : downloadFileName
-                    }.txt`
+                    }.${markdownMode ? "md" : "txt"}`
                   );
                   element.style.display = "none";
                   document.body.appendChild(element);
