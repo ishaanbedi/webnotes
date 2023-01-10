@@ -1,8 +1,10 @@
-import axios from "axios";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import Navbar from "../components/Navbar";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import NoteArea from "../components/NoteArea";
 const Home: NextPage = () => {
   const [hideButton, setHideButton] = useState(false);
   const [text, setText] = useState("");
@@ -36,7 +38,6 @@ const Home: NextPage = () => {
     label.click();
     document.body.removeChild(label);
   };
-
   const clearTextArea = () => {
     localStorage.removeItem("webnote-text");
     setText("");
@@ -64,151 +65,121 @@ const Home: NextPage = () => {
         <title>webnotes | take quick notes</title>
       </Head>
       <header>
-        <div className="py-4 flex justify-between px-5 sticky w-screen bg-primary text-primary-content">
-          <h1 className="text-xl font-bold">webnotes</h1>
-          <ul className="flex space-x-3">
-            <span
-              className={`${hideButton ? "hidden" : "block"} flex space-x-3`}
+        <Navbar
+          clearTextArea={clearTextArea}
+          shareNote={shareNote}
+          downloadTextAsFile={downloadTextAsFile}
+          shareLoading={shareLoading}
+          hideButton={hideButton}
+          text={text}
+        />
+      </header>
+      <NoteArea text={text} handleTextChange={handleTextChange} />
+      <div>
+        <input type="checkbox" id="share-note-modal" className="modal-toggle" />
+        <div className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">
+              Awesome! Here&apos;s your shareable link for this note.
+            </h3>
+            <Link
+              href={`https://webnotes.ishn.xyz/${shareRecordID}`}
+              target={"_blank"}
+              className="link"
             >
-              <li>
-                <button
+              <p className="py-4">webnotes.ishn.xyz/{shareRecordID}</p>
+            </Link>
+            <span className="flex justify-end space-x-3">
+              <div className="modal-action">
+                <label
                   onClick={() => {
-                    downloadTextAsFile(text);
+                    navigator.clipboard.writeText(
+                      `https://webnotes.ishn.xyz/${shareRecordID}`
+                    );
+                    setCopyButtonText("Copied!");
+                    setTimeout(() => {
+                      setCopyButtonText("Copy");
+                    }, 2000);
                   }}
+                  className="btn"
+                >
+                  {copyButtonText}
+                </label>
+              </div>
+              <div className="modal-action">
+                <label htmlFor="share-note-modal" className="btn">
+                  Close
+                </label>
+              </div>
+            </span>
+          </div>
+        </div>
+        <input
+          type="checkbox"
+          id="download-file-modal"
+          className="modal-toggle"
+        />
+        <div className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Download the note as a file.</h3>
+            <div className="form-control w-full py-3">
+              <input
+                type="text"
+                placeholder="webnote"
+                value={downloadFileName}
+                className="input input-bordered w-full"
+                onChange={(e) => setDownloadFileName(e.target.value)}
+                onKeyPress={(e) => {
+                  var allowedChars = /^[a-zA-Z0-9 ]+$/;
+                  if (!allowedChars.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
+              />
+            </div>
+            <span className="flex justify-end space-x-3">
+              <div className="modal-action">
+                <label
+                  onClick={() => {
+                    const element = document.createElement("a");
+                    element.setAttribute(
+                      "href",
+                      "data:text/plain;charset=utf-8," +
+                        encodeURIComponent(text)
+                    );
+                    element.setAttribute(
+                      "download",
+                      `${
+                        downloadFileName.length === 0
+                          ? "webnote"
+                          : downloadFileName
+                      }.txt`
+                    );
+                    element.style.display = "none";
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+                    setDownloadFileName("");
+                  }}
+                  className="btn"
+                  htmlFor="download-file-modal"
                 >
                   Download
-                </button>
-              </li>
-              <li>
-                <button onClick={clearTextArea}>Clear</button>
-              </li>
-              <li>
-                <button
-                  className={
-                    shareLoading ? "text-gray-500 cursor-not-allowed" : ""
-                  }
-                  disabled={shareLoading}
-                  onClick={shareNote}
+                </label>
+              </div>
+              <div className="modal-action">
+                <label
+                  onClick={() => {
+                    setDownloadFileName("");
+                  }}
+                  htmlFor="download-file-modal"
+                  className="btn"
                 >
-                  Share
-                </button>
-              </li>
+                  Cancel
+                </label>
+              </div>
             </span>
-          </ul>
-        </div>
-      </header>
-      <section>
-        <textarea
-          id="textarea"
-          className="min-h-screen w-screen px-5 pt-3 outline-none resize-none	bg-base-200 text-base-content"
-          placeholder="Start typing here..."
-          value={text}
-          onChange={(e) => handleTextChange(e.target.value)}
-        />
-      </section>
-      <input type="checkbox" id="share-note-modal" className="modal-toggle" />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            Awesome! Here&apos;s your shareable link for this note.
-          </h3>
-          <Link
-            href={`https://webnotes.ishn.xyz/${shareRecordID}`}
-            target={"_blank"}
-            className="link"
-          >
-            <p className="py-4">webnotes.ishn.xyz/{shareRecordID}</p>
-          </Link>
-          <span className="flex justify-end space-x-3">
-            <div className="modal-action">
-              <label
-                onClick={() => {
-                  navigator.clipboard.writeText(
-                    `https://webnotes.ishn.xyz/${shareRecordID}`
-                    );
-                  setCopyButtonText("Copied!");
-                  setTimeout(() => {
-                    setCopyButtonText("Copy");
-                  }, 2000);
-                }}
-                className="btn"
-              >
-                {copyButtonText}
-              </label>
-            </div>
-            <div className="modal-action">
-              <label htmlFor="share-note-modal" className="btn">
-                Close
-              </label>
-            </div>
-          </span>
-        </div>
-      </div>
-      <input
-        type="checkbox"
-        id="download-file-modal"
-        className="modal-toggle"
-      />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Download the note as a file.</h3>
-          <div className="form-control w-full py-3">
-            <input
-              type="text"
-              placeholder="webnote"
-              value={downloadFileName}
-              className="input input-bordered w-full"
-              onChange={(e) => setDownloadFileName(e.target.value)}
-              onKeyPress={(e) => {
-                var allowedChars = /^[a-zA-Z0-9 ]+$/;
-                if (!allowedChars.test(e.key)) {
-                  e.preventDefault();
-                }
-              }}
-            />
           </div>
-
-          <span className="flex justify-end space-x-3">
-            <div className="modal-action">
-              <label
-                onClick={() => {
-                  const element = document.createElement("a");
-                  element.setAttribute(
-                    "href",
-                    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
-                  );
-                  element.setAttribute(
-                    "download",
-                    `${
-                      downloadFileName.length === 0
-                        ? "webnote"
-                        : downloadFileName
-                    }.txt`
-                  );
-                  element.style.display = "none";
-                  document.body.appendChild(element);
-                  element.click();
-                  document.body.removeChild(element);
-                  setDownloadFileName("");
-                }}
-                className="btn"
-                htmlFor="download-file-modal"
-              >
-                Download
-              </label>
-            </div>
-            <div className="modal-action">
-              <label
-                onClick={() => {
-                  setDownloadFileName("");
-                }}
-                htmlFor="download-file-modal"
-                className="btn"
-              >
-                Cancel
-              </label>
-            </div>
-          </span>
         </div>
       </div>
     </div>
