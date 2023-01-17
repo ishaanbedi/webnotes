@@ -11,6 +11,7 @@ import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
 interface Props {
   note: string;
+  md: string;
 }
 const Home: NextPage<Props> = (props) => {
   const [note, setNote] = useState(props.note);
@@ -38,9 +39,9 @@ const Home: NextPage<Props> = (props) => {
     label.click();
     document.body.removeChild(label);
   };
-
-  const [markdownMode, setMarkdownMode] = useState(false);
-
+  const [markdownMode, setMarkdownMode] = useState(
+    props.md === "true" ? true : false
+  );
   return (
     <div>
       <Head>
@@ -152,6 +153,7 @@ export default Home;
 
 export const getServerSideProps = async (context: Context) => {
   const id = context.query.id;
+  const md = context.query.md;
   const xata = getXataClient();
   const record = await xata.db.shared_webnotes.read(`rec_${id}`);
   if (record === null) {
@@ -163,6 +165,7 @@ export const getServerSideProps = async (context: Context) => {
   return {
     props: {
       note,
+      md: md,
     },
   };
 };
