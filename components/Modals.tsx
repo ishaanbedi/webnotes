@@ -80,6 +80,17 @@ const Modals = ({
               preview ⚡️
             </li>
             <li>Supports offline working 📱</li>
+            <li>
+              Built by{" "}
+              <Link
+                className="link"
+                href="https://www.ishaanbedi.in"
+                target={"_blank"}
+              >
+                Ishaan Bedi
+              </Link>{" "}
+              in 2023 🚀
+            </li>
           </ul>
           <span className="flex justify-end space-x-3">
             <div className="modal-action">
