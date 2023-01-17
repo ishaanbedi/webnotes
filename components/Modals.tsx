@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useState } from "react";
 const Modals = ({
   shareRecordID,
   setCopyButtonText,
@@ -16,6 +17,7 @@ const Modals = ({
   text: string;
   markdownMode: boolean;
 }) => {
+  const [shareWithMd, setShareWithMd] = useState(false);
   return (
     <div>
       <input type="checkbox" id="share-note-modal" className="modal-toggle" />
@@ -24,12 +26,30 @@ const Modals = ({
           <h3 className="font-bold text-lg">
             Awesome! Here&apos;s your shareable link for this note.
           </h3>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">
+                Share with Markdown preview enabled by default
+              </span>
+              <input
+                type="checkbox"
+                className="toggle"
+                checked={shareWithMd}
+                onChange={() => setShareWithMd(!shareWithMd)}
+              />
+            </label>
+          </div>
           <Link
-            href={`https://webnotes.ishn.xyz/${shareRecordID}`}
+            href={`https://webnotes.ishn.xyz/${shareRecordID}${
+              shareWithMd ? "?md=true" : ""
+            }`}
             target={"_blank"}
             className="link"
           >
-            <p className="py-4">webnotes.ishn.xyz/{shareRecordID}</p>
+            <p className="py-4">
+              webnotes.ishn.xyz/{shareRecordID}
+              {shareWithMd ? "?md=true" : ""}
+            </p>
           </Link>
           <span className="flex justify-end space-x-3">
             <div className="modal-action">
