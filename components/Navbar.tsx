@@ -21,7 +21,7 @@ const Navbar = ({
 }) => {
   return (
     <div className="py-4 flex justify-between items-center px-6 sticky w-screen bg-primary text-primary-content">
-      <h1 className="text-xl font-bold">webnotes 🚀</h1>
+      <h1 className="text-xl font-bold">webnotes</h1>
       <ul className="flex space-x-3 font-semibold">
         <span className={`${hideButton ? "hidden" : "block"} flex space-x-3`}>
           <div className="dropdown dropdown-end">
