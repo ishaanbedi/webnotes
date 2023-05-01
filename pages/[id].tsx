@@ -113,10 +113,9 @@ const Home: NextPage<Props> = (props) => {
                   );
                   element.setAttribute(
                     "download",
-                    `${
-                      downloadFileName.length === 0
-                        ? "webnote"
-                        : downloadFileName
+                    `${downloadFileName.length === 0
+                      ? "webnote"
+                      : downloadFileName
                     }.${markdownMode ? "md" : "txt"}`
                   );
                   element.style.display = "none";
@@ -155,6 +154,17 @@ export const getServerSideProps = async (context: Context) => {
   const id = context.query.id;
   const md = context.query.md;
   const xata = getXataClient();
+  var record1 = await xata.db.shared_webnotes.filter("slug", id)
+    .getAll();
+  if (record1.length !== 0) {
+    const note1 = record1[0].note;
+    console.log(note1)
+    return {
+      props: {
+        note: note1,
+      },
+    };
+  }
   const record = await xata.db.shared_webnotes.read(`rec_${id}`);
   if (record === null) {
     return {
@@ -162,10 +172,10 @@ export const getServerSideProps = async (context: Context) => {
     };
   }
   const note = record.note;
+  console.log(note)
   return {
     props: {
       note,
-      md: md,
     },
   };
 };

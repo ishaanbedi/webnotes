@@ -1,72 +1,123 @@
+import axios from "axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { IoMdCopy } from "react-icons/io";
 const Modals = ({
   shareRecordID,
-  setCopyButtonText,
-  copyButtonText,
   downloadFileName,
   setDownloadFileName,
   text,
   markdownMode,
 }: {
   shareRecordID: string;
-  setCopyButtonText: (value: string) => void;
-  copyButtonText: string;
   downloadFileName: string;
   setDownloadFileName: (value: string) => void;
   text: string;
   markdownMode: boolean;
 }) => {
-  const [shareWithMd, setShareWithMd] = useState(false);
+  const [slug, setSlug] = useState("");
+  const [isAvailable, setIsAvailable] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const handleSaveSlug = () => {
+    axios
+      .post("/api/save-slug" + `?slug=${slug}&recordID=${shareRecordID}`)
+      .catch((error) => {
+        console.log(error);
+      });
+    setSuccess(true);
+  };
+
+  useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
+    const debounceTimer = setTimeout(() => {
+      if (slug.length > 0) {
+        axios.get(`/api/check-slug?slug=${slug}`, { cancelToken: source.token })
+          .then(response => setIsAvailable(response.data.length === 0))
+          .then(response => console.log(response))
+          .catch(error => {
+            if (axios.isCancel(error)) {
+              console.log('Request cancelled');
+            } else {
+              console.error(error);
+            }
+          });
+      }
+    }, 500); // debounce time of 500ms
+
+    return () => {
+      clearTimeout(debounceTimer);
+      source.cancel('Request cancelled');
+    };
+  }, [slug]);
+
   return (
     <div>
       <input type="checkbox" id="share-note-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">
-            Awesome! Here&apos;s your shareable link for this note.
+            Share your note with others 🤝
           </h3>
-          <div className="form-control">
-            <label className="label cursor-pointer">
-              <span className="label-text">
-                Share with Markdown preview enabled by default
-              </span>
-              <input
-                type="checkbox"
-                className="toggle"
-                checked={shareWithMd}
-                onChange={() => setShareWithMd(!shareWithMd)}
-              />
-            </label>
+          <div>
+            <input
+              onChange={(event) => {
+                setIsAvailable(null);
+                setSuccess(false);
+                const inputValue = event.target.value;
+                const sanitizedValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+                event.target.value = sanitizedValue;
+                setSlug(sanitizedValue);
+              }}
+              value={slug}
+              type="text" placeholder="Enter a custom slug..." className="input input-bordered w-full my-3" />
           </div>
-          <Link
-            href={`https://webnotes.ishn.xyz/${shareRecordID}${
-              shareWithMd ? "?md=true" : ""
-            }`}
-            target={"_blank"}
-            className="link"
-          >
-            <p className="py-4">
-              webnotes.ishn.xyz/{shareRecordID}
-              {shareWithMd ? "?md=true" : ""}
-            </p>
-          </Link>
-          <span className="flex justify-end space-x-3">
-            <div className="modal-action">
-              <label
+          <div className={`text-sm ${slug.length > 0 && !success ? "visible" : "invisible"}`}>
+            {isAvailable === true && <p>slug is available!</p>}
+            {isAvailable === false && <p>slug is not available.</p>}
+            {isAvailable === null && <p>Checking slug availability...</p>}
+          </div>
+          <div className="flex justify-between items-center">
+            <Link
+              href={`https://ish.ninja/${slug !== "" ? slug : shareRecordID}`}
+              target={"_blank"}
+              className="link"
+            >
+              <p className="py-4">
+                ish.ninja/{
+                  slug !== "" ? slug : shareRecordID
+                }
+              </p>
+            </Link>
+            <span>
+              <button
+                disabled={!isAvailable && slug.length > 0}
+                className={`btn btn-sm btn-ghost`}
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `https://webnotes.ishn.xyz/${shareRecordID}`
+                    `ish.ninja/${slug !== "" ? slug : shareRecordID
+                    }`
                   );
-                  setCopyButtonText("Copied!");
-                  setTimeout(() => {
-                    setCopyButtonText("Copy");
-                  }, 2000);
-                }}
-                className="btn"
+                }
+                }
               >
-                {copyButtonText}
-              </label>
+                <IoMdCopy className="text-xl" />
+              </button>
+            </span>
+          </div>
+          <span className="flex justify-end space-x-3">
+            <div className="modal-action">
+              <button
+                disabled={!isAvailable || slug.length === 0 || success}
+                className={`btn`}
+                onClick={() => {
+                  handleSaveSlug();
+                }
+                }
+              >
+                Save slug
+              </button>
             </div>
             <div className="modal-action">
               <label htmlFor="share-note-modal" className="btn">
@@ -165,10 +216,9 @@ const Modals = ({
                   );
                   element.setAttribute(
                     "download",
-                    `${
-                      downloadFileName.length === 0
-                        ? "webnote"
-                        : downloadFileName
+                    `${downloadFileName.length === 0
+                      ? "webnote"
+                      : downloadFileName
                     }.${!markdownMode ? "txt" : "md"}`
                   );
                   element.style.display = "none";

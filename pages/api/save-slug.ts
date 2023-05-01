@@ -7,9 +7,10 @@ var handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(403).json("Forbidden");
     return;
   }
-  const record = await xata.db.shared_webnotes.create({
-    note: JSON.stringify(req.query.note),
+  const recID = `rec_${req.query.recordID}`
+  const record = await xata.db.shared_webnotes.update(recID, {
+    slug: req.query.slug,
   });
-  res.status(200).json(record.id.slice(4));
+  res.status(200).json(true);
 };
 export default handler;
