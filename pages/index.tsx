@@ -11,7 +11,6 @@ const Home: NextPage = () => {
   const [text, setText] = useState("");
   const [shareLoading, setShareLoading] = useState(false);
   const [shareRecordID, setShareRecordID] = useState("");
-  const [copyButtonText, setCopyButtonText] = useState("Copy");
   const [downloadFileName, setDownloadFileName] = useState("");
   const [markdownMode, setMarkdownMode] = useState(false);
   useEffect(() => {

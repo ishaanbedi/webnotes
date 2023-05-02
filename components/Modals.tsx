@@ -2,6 +2,9 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoMdCopy } from "react-icons/io";
+import { BsChevronDoubleRight } from "react-icons/bs";
+import toast from 'react-hot-toast';
+
 const Modals = ({
   shareRecordID,
   downloadFileName,
@@ -19,12 +22,17 @@ const Modals = ({
   const [isAvailable, setIsAvailable] = useState(null);
   const [success, setSuccess] = useState(false);
   const handleSaveSlug = () => {
-    axios
+    const fetchData = axios
       .post("/api/save-slug" + `?slug=${slug}&recordID=${shareRecordID}`)
       .catch((error) => {
         console.log(error);
       });
     setSuccess(true);
+    toast.promise(fetchData, {
+      loading: 'Saving...',
+      success: 'Done',
+      error: 'An error occurred...',
+    });
   };
 
   useEffect(() => {
@@ -35,9 +43,9 @@ const Modals = ({
       if (slug.length > 0) {
         axios.get(`/api/check-slug?slug=${slug}`, { cancelToken: source.token })
           .then(response =>
-            //   setIsAvailable(
-            // )
-            console.log(response)
+            setIsAvailable(
+              response.data
+            )
           )
           .then(response => console.log(response))
           .catch(error => {
@@ -83,26 +91,32 @@ const Modals = ({
             {isAvailable === null && <p>Checking slug availability...</p>}
           </div>
           <div className="flex justify-between items-center">
-            <Link
-              href={`https://ish.ninja/${slug !== "" ? slug : shareRecordID}`}
-              target={"_blank"}
-              className="link"
-            >
-              <p className="py-4">
-                ish.ninja/{
-                  slug !== "" ? slug : shareRecordID
-                }
-              </p>
-            </Link>
+            <span className="flex items-center">
+              <BsChevronDoubleRight
+              className={`text-bold`}
+              />
+              <Link
+                href={`https://ish.ninja/${slug !== "" ? slug : shareRecordID}`}
+                target={"_blank"}
+                className="link ml-2"
+              >
+                <p className="py-4 font-bold">
+                  ish.ninja/{
+                    slug !== "" ? slug : shareRecordID
+                  }
+                </p>
+              </Link>
+            </span>
             <span>
               <button
-                disabled={!isAvailable && slug.length > 0}
+                disabled={(!isAvailable && slug.length > 0)}
                 className={`btn btn-sm btn-ghost`}
                 onClick={() => {
                   navigator.clipboard.writeText(
                     `ish.ninja/${slug !== "" ? slug : shareRecordID
                     }`
                   );
+                  toast.success('Copied!');
                 }
                 }
               >
@@ -113,6 +127,7 @@ const Modals = ({
           <span className="flex justify-end space-x-3">
             <div className="modal-action">
               <button
+
                 disabled={!isAvailable || slug.length === 0 || success}
                 className={`btn`}
                 onClick={() => {

@@ -8,6 +8,8 @@ var handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return;
     }
     const records = await xata.db.shared_webnotes.filter("slug", req.query.slug as string).getAll();
-    res.status(200).json(records);
+    if (records.length > 0) {
+        return res.status(200).json(false);
+    } else return res.status(200).json(true);
 };
 export default handler;
