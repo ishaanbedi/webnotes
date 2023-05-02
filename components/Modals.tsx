@@ -93,17 +93,17 @@ const Modals = ({
           <div className="flex justify-between items-center">
             <span className="flex items-center">
               <BsChevronDoubleRight
-              className={`text-bold`}
+                className={`text-bold`}
               />
               <Link
-                href={`https://ish.ninja/${slug !== "" ? slug : shareRecordID}`}
+                href={
+                  `${process.env.NEXT_PUBLIC_APP_URL}/${slug !== "" ? slug : shareRecordID}`
+                }
                 target={"_blank"}
                 className="link ml-2"
               >
                 <p className="py-4 font-bold">
-                  ish.ninja/{
-                    slug !== "" ? slug : shareRecordID
-                  }
+                  {`${process.env.NEXT_PUBLIC_APP_URL}/${slug !== "" ? slug : shareRecordID}`}
                 </p>
               </Link>
             </span>
