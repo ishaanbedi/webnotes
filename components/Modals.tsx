@@ -113,8 +113,7 @@ const Modals = ({
                 className={`btn btn-sm btn-ghost`}
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `ish.ninja/${slug !== "" ? slug : shareRecordID
-                    }`
+                    `${process.env.NEXT_PUBLIC_APP_URL}/${slug !== "" ? slug : shareRecordID}`
                   );
                   toast.success('Copied!');
                 }
