@@ -34,7 +34,11 @@ const Modals = ({
     const debounceTimer = setTimeout(() => {
       if (slug.length > 0) {
         axios.get(`/api/check-slug?slug=${slug}`, { cancelToken: source.token })
-          .then(response => setIsAvailable(response.data.length === 0))
+          .then(response =>
+            //   setIsAvailable(
+            // )
+            console.log(response)
+          )
           .then(response => console.log(response))
           .catch(error => {
             if (axios.isCancel(error)) {

@@ -99,8 +99,6 @@ const Home: NextPage = () => {
       />
       <Modals
         shareRecordID={shareRecordID}
-        setCopyButtonText={setCopyButtonText}
-        copyButtonText={copyButtonText}
         downloadFileName={downloadFileName}
         setDownloadFileName={setDownloadFileName}
         text={text}

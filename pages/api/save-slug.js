@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getXataClient } from "../../src/xata";
 const xata = getXataClient();
-var handler = async (req: NextApiRequest, res: NextApiResponse) => {
+var handler = async (req, res) => {
   var apiKeyServer = process.env.APP_SECRET;
   if (!apiKeyServer) {
     res.status(403).json("Forbidden");
