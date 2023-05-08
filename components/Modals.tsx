@@ -25,7 +25,6 @@ const Modals = ({
     const fetchData = axios
       .post("/api/save-slug" + `?slug=${slug}&recordID=${shareRecordID}`)
       .catch((error) => {
-        console.log(error);
       });
     setSuccess(true);
     toast.promise(fetchData, {

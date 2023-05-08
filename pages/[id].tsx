@@ -40,7 +40,7 @@ const Home: NextPage<Props> = (props) => {
     document.body.removeChild(label);
   };
   const [markdownMode, setMarkdownMode] = useState(
-    props.md === "true" ? true : false
+    (props.md === ("true") || props.md === "1") ? true : false
   );
   return (
     <div>
@@ -158,10 +158,10 @@ export const getServerSideProps = async (context: Context) => {
     .getAll();
   if (record1.length !== 0) {
     const note1 = record1[0].note;
-    console.log(note1)
     return {
       props: {
         note: note1,
+        md: md
       },
     };
   }
@@ -172,10 +172,10 @@ export const getServerSideProps = async (context: Context) => {
     };
   }
   const note = record.note;
-  console.log(note)
   return {
     props: {
       note,
+      md: md
     },
   };
 };
