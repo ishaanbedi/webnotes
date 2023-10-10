@@ -26,6 +26,10 @@ const Home: NextPage = () => {
     } else {
       setText(JSON.parse(localStorage.getItem("webnote-text") || ""));
     }
+    if (localStorage.getItem("user-welcomed") === null) {
+      showWelcome();
+      localStorage.setItem("user-welcomed", "true");
+    }
   }, []);
   const handleTextChange = (value: string) => {
     if (value === "") {
@@ -73,6 +77,14 @@ const Home: NextPage = () => {
     label.click();
     document.body.removeChild(label);
   };
+  const showWelcome = () => {
+      var label = document.createElement("label");
+      label.htmlFor = "welcome-modal";
+      document.body.appendChild(label);
+      label.classList.add("hidden");
+      label.click();
+      document.body.removeChild(label);
+   };
   return (
     <div>
       <Head>

@@ -264,6 +264,59 @@ const Modals = ({
           </span>
         </div>
       </div>
+      <input type="checkbox" id="welcome-modal" className="modal-toggle" />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Welcome to <span className="font-bold">webnotes</span></h3>
+          <h4>
+            <span className="font-bold">webnotes</span> is a simple, open-source
+            note-taking app built with modern web technologies.
+          </h4>
+          <h4 className="font-bold pt-2">🌟 Features</h4>
+          <ul className="list-disc list-inside">
+            <li>Share your notes with others 🤝</li>
+            <li>Download notes to your system 💾</li>
+            <li>
+              Supports{" "}
+              <Link
+                href="https://www.markdownguide.org/getting-started/#what-is-markdown"
+                target={"_blank"}
+                className="link "
+              >
+                Markdown
+              </Link>{" "}
+              preview ⚡️
+            </li>
+            <li>Supports offline working 📱</li>
+            <li>
+              Built by{" "}
+              <Link
+                className="link"
+                href="https://www.ishaanbedi.in"
+                target={"_blank"}
+              >
+                Ishaan Bedi
+              </Link>{" "}
+              in 2023 🚀
+            </li>
+          </ul>
+          <span className="flex justify-end space-x-3">
+            <div className="modal-action">
+              <Link
+                target={"_blank"}
+                href="https://www.github.com/ishaanbedi/webnotes"
+              >
+                <label className="btn">GitHub</label>
+              </Link>
+            </div>
+            <div className="modal-action">
+              <label htmlFor="welcome-modal" className="btn">
+                Close
+              </label>
+            </div>
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
