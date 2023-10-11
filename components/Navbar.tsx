@@ -20,19 +20,12 @@ const Navbar = ({
   setMarkdownMode: (markdownMode: boolean) => void;
 }) => {
   return (
-    <div className="py-4 flex justify-between items-center px-6 sticky w-screen bg-primary text-primary-content">
+    <div className="py-4 flex justify-between items-center px-6 sticky bg-primary text-primary-content">
       <h1 className="text-xl font-bold">webnotes</h1>
       <ul className="flex space-x-3 font-semibold">
         <span className={`${hideButton ? "hidden" : "block"} flex space-x-3`}>
           <div className="dropdown dropdown-end">
-            <label
-              tabIndex={0}
-              className={`${
-                shareLoading
-                  ? "cursor-not-allowed text-base-300"
-                  : "cursor-pointer "
-              }`}
-            >
+            <label tabIndex={0} className={`${shareLoading ? "cursor-not-allowed text-base-300" : "cursor-pointer "}`}>
               {shareLoading ? "Loading" : "Menu"}
             </label>
             <ul
@@ -53,9 +46,7 @@ const Navbar = ({
               </li>
               <li>
                 <button
-                  className={
-                    shareLoading ? "text-gray-500 cursor-not-allowed" : ""
-                  }
+                  className={shareLoading ? "text-gray-500 cursor-not-allowed" : ""}
                   disabled={shareLoading}
                   onClick={shareNote}
                 >
@@ -65,13 +56,10 @@ const Navbar = ({
               <li onClick={() => setMarkdownMode(!markdownMode)}>
                 <button
                   className={`${
-                    markdownMode
-                      ? "bg-primary text-primary-content"
-                      : "bg-primary-content text-primary"
+                    markdownMode ? "bg-primary text-primary-content" : "bg-primary-content text-primary"
                   } gap-2 flex justify-between`}
                 >
                   Markdown Preview
-                
                 </button>
               </li>
             </ul>
