@@ -16,7 +16,7 @@ const NoteArea = ({
     <section>
       {markdownMode ? (
         <ReactMarkdown
-          className="prose max-w-none min-h-screen w-screen px-5 pt-3 outline-none resize-none	bg-base-200 text-base-content"
+          className="prose max-w-none min-h-screen truncate px-5 pt-3 outline-none resize-none	bg-base-200 text-base-content"
           remarkPlugins={[remarkGfm, remarkMath]}
           rehypePlugins={[rehypeKatex]}
         >
@@ -25,7 +25,7 @@ const NoteArea = ({
       ) : (
         <textarea
           id="textarea"
-          className="min-h-screen w-screen px-5 pt-3 outline-none resize-none	bg-base-200 text-base-content"
+          className="min-h-screen w-full px-5 pt-3 outline-none resize-none	bg-base-200 text-base-content"
           placeholder="Start typing here..."
           value={text}
           onChange={(e) => {
