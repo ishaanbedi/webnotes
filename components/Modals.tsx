@@ -163,8 +163,8 @@ const Modals = ({
           <h4 className="font-bold pt-2">Uninstall webnotes:</h4>
           <ul className="list-disc list-inside">
             <li>On your computer, open Chrome.</li>
-            <li>Go to a website you want to uninstall.</li>
-            <li>At the top right, click More More and then Uninstall webnotes.</li>
+            <li>Go to https://webnotes.vercel.app.</li>
+            <li>At the top right, click More and then Uninstall webnotes.</li>
             <li>Click Remove. To clear app data from Chrome, select "Also clear data from Chrome".</li>
           </ul>
           <br />
