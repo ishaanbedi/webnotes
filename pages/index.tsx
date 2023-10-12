@@ -69,6 +69,14 @@ const Home: NextPage = () => {
     setShareLoading(false);
     setShareRecordID(data);
   };
+  const showDownload = () => {
+    var label = document.createElement("label");
+    label.htmlFor = "download-modal";
+    document.body.appendChild(label);
+    label.classList.add("hidden");
+    label.click();
+    document.body.removeChild(label);
+  };
   const showAbout = () => {
     var label = document.createElement("label");
     label.htmlFor = "about-modal";
@@ -92,6 +100,7 @@ const Home: NextPage = () => {
       </Head>
       <header>
         <Navbar
+          showDownload={showDownload}
           showAbout={showAbout}
           clearTextArea={clearTextArea}
           shareNote={shareNote}

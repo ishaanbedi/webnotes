@@ -144,6 +144,46 @@ const Modals = ({
           </span>
         </div>
       </div>
+      {/* DOWNLOAD MODAL */}
+      <input type="checkbox" id="download-modal" className="modal-toggle" />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Download webnotes</h3>
+          <h4>
+            <span className="font-bold">webnotes</span> is a simple, open-source
+            note-taking app built with modern web technologies.
+          </h4>
+          <br />
+          <h4 className="font-bold pt-2">Install webnotes:</h4>
+          <ul className="list-disc list-inside">
+            <li>At the top right of the address bar, click Install.</li>
+            <li>Follow the onscreen instructions to install webnotes.</li>
+          </ul>
+          <br />
+          <h4 className="font-bold pt-2">Uninstall webnotes:</h4>
+          <ul className="list-disc list-inside">
+            <li>On your computer, open Chrome.</li>
+            <li>Go to a website you want to uninstall.</li>
+            <li>At the top right, click More More and then Uninstall webnotes.</li>
+            <li>Click Remove. To clear app data from Chrome, select "Also clear data from Chrome".</li>
+          </ul>
+          <br />
+          <Link
+                href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DDesktop#zippy=%2Cuninstall-from-a-windows-mac-or-linux-computer"
+                target={"_blank"}
+                className="link "
+              >
+                Click here for more information.
+              </Link>{" "}
+          <span className="flex justify-end space-x-3">
+            <div className="modal-action">
+              <label htmlFor="download-modal" className="btn">
+                Close
+              </label>
+            </div>
+          </span>
+        </div>
+      </div>
       <input type="checkbox" id="about-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
