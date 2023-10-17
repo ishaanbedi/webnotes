@@ -5,6 +5,7 @@ const Navbar = ({
   shareNote,
   shareLoading,
   downloadTextAsFile,
+  showDownload,
   showAbout,
   markdownMode,
   setMarkdownMode,
@@ -15,6 +16,7 @@ const Navbar = ({
   clearTextArea: () => void;
   shareNote: () => Promise<void>;
   shareLoading: boolean;
+  showDownload: () => void;
   showAbout: () => void;
   markdownMode: boolean;
   setMarkdownMode: (markdownMode: boolean) => void;
@@ -67,6 +69,9 @@ const Navbar = ({
         </span>
         <li>
           <button onClick={showAbout}>About</button>
+        </li>
+        <li>
+        <button onClick={showDownload}>Install webnotes</button>
         </li>
       </ul>
     </div>

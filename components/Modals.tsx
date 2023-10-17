@@ -144,6 +144,39 @@ const Modals = ({
           </span>
         </div>
       </div>
+      {/* DOWNLOAD MODAL */}
+      <input type="checkbox" id="download-modal" className="modal-toggle" />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Install webnotes</h3>
+          <h4>
+            <span className="font-bold">webnotes</span> is a simple, open-source
+            note-taking app built with modern web technologies.
+          </h4>
+          <br />
+          <h4 className="font-bold pt-2">Install webnotes:</h4>
+          <ul className="list-disc list-inside">
+            <li>At the top right of the address bar, click the install icon.</li>
+            <li>Follow the onscreen instructions to install webnotes.</li>
+          </ul>
+          <br />
+          <h4 className="font-bold pt-2">Uninstall webnotes:</h4>
+          <ul className="list-disc list-inside">
+            <li>On your computer, open your preferred browser.</li>
+            <li>Go to https://webnotes.vercel.app.</li>
+            <li>Open site preferences & click Uninstall webnotes.</li>
+            <li>You can opt to clear app data from your browser.</li>
+          </ul>
+          <br />
+          <span className="flex justify-end space-x-3">
+            <div className="modal-action">
+              <label htmlFor="download-modal" className="btn">
+                Close
+              </label>
+            </div>
+          </span>
+        </div>
+      </div>
       <input type="checkbox" id="about-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
