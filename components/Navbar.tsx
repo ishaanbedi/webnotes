@@ -71,7 +71,7 @@ const Navbar = ({
           <button onClick={showAbout}>About</button>
         </li>
         <li>
-        <button onClick={showDownload}>Download App</button>
+        <button onClick={showDownload}>Install webnotes</button>
         </li>
       </ul>
     </div>
