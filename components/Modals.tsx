@@ -162,19 +162,12 @@ const Modals = ({
           <br />
           <h4 className="font-bold pt-2">Uninstall webnotes:</h4>
           <ul className="list-disc list-inside">
-            <li>On your computer, open Chrome.</li>
+            <li>On your computer, open your preferred browser.</li>
             <li>Go to https://webnotes.vercel.app.</li>
-            <li>At the top right, click More and then Uninstall webnotes.</li>
-            <li>Click Remove. To clear app data from Chrome, select "Also clear data from Chrome".</li>
+            <li>Open site preferences & click Uninstall webnotes.</li>
+            <li>You can opt to clear app data from your browser.</li>
           </ul>
           <br />
-          <Link
-                href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DDesktop#zippy=%2Cuninstall-from-a-windows-mac-or-linux-computer"
-                target={"_blank"}
-                className="link "
-              >
-                Click here for more information.
-              </Link>{" "}
           <span className="flex justify-end space-x-3">
             <div className="modal-action">
               <label htmlFor="download-modal" className="btn">
