@@ -148,7 +148,7 @@ const Modals = ({
       <input type="checkbox" id="download-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Download webnotes</h3>
+          <h3 className="font-bold text-lg">Install webnotes</h3>
           <h4>
             <span className="font-bold">webnotes</span> is a simple, open-source
             note-taking app built with modern web technologies.
@@ -156,7 +156,7 @@ const Modals = ({
           <br />
           <h4 className="font-bold pt-2">Install webnotes:</h4>
           <ul className="list-disc list-inside">
-            <li>At the top right of the address bar, click Install.</li>
+            <li>At the top right of the address bar, click the install icon.</li>
             <li>Follow the onscreen instructions to install webnotes.</li>
           </ul>
           <br />
