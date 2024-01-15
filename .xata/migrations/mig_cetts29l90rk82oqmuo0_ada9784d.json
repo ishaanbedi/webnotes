@@ -1,0 +1,12 @@
+{
+  "id": "mig_cetts29l90rk82oqmuo0",
+  "parentID": "mig_cettris6b7sgbuohi9m0",
+  "checksum": "1:ada9784dd8b01c00707346539837d2d4674a6d7b250ed599a89772c473a71718",
+  "operations": [
+    {
+      "addTable": {
+        "table": "shared_webnotes"
+      }
+    }
+  ]
+}

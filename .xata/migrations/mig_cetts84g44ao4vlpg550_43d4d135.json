@@ -1,0 +1,16 @@
+{
+  "id": "mig_cetts84g44ao4vlpg550",
+  "parentID": "mig_cetts6cg44ao4vlpg54g",
+  "checksum": "1:43d4d1358ed4134daa16f099289ece5b345a6089f3f8e2594dc8ef309e79a561",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "slug",
+          "type": "text"
+        },
+        "table": "shared_webnotes"
+      }
+    }
+  ]
+}

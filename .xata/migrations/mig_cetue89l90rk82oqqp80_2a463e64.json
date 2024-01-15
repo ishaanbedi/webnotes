@@ -1,0 +1,13 @@
+{
+  "id": "mig_cetue89l90rk82oqqp80",
+  "parentID": "mig_cetts84g44ao4vlpg550",
+  "checksum": "1:2a463e64a5a2b784592b6c55de7d70d5f5e8b7172bf85aba2b13140728b32458",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "slug",
+        "table": "shared_webnotes"
+      }
+    }
+  ]
+}

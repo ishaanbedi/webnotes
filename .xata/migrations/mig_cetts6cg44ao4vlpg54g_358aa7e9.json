@@ -1,0 +1,16 @@
+{
+  "id": "mig_cetts6cg44ao4vlpg54g",
+  "parentID": "mig_cetts29l90rk82oqmuo0",
+  "checksum": "1:358aa7e9e3f4673ea85104899888b914db277cb4a5adb31d0643ebabfb3f07db",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "note",
+          "type": "text"
+        },
+        "table": "shared_webnotes"
+      }
+    }
+  ]
+}
