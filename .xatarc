@@ -1,6 +1,0 @@
-{
-  "databaseURL": "https://Ishaan-Bedi-s-workspace-tbb9k6.us-west-2.xata.sh/db/webnotes",
-  "codegen": {
-    "output": "src/xata.ts"
-  }
-}
