@@ -1,6 +1,6 @@
 {
-  "name": "plate-playground-template",
-  "version": "0.0.1",
+  "name": "webnotes",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
