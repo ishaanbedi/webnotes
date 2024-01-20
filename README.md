@@ -4,13 +4,11 @@ WebNotes, a note-taking application built with Next.js in TypeScript 💻, Tailw
 
 ## Features
 
-### Share your notes with others 🤝
-Share notes effortlessly with your team members, colleagues, or classmates via a link. 
+- Share your notes with others 🤝
 
 - Super fast performance 🚀
-Enjoy a performant user interface that accelerates your note-taking experience. WebNotes is optimized for speed, ensuring that you can quickly capture your thoughts without any lag.
 
-- Better UI
+- Minimal and Clean UI
 
 - Dark/Light Mode
 
