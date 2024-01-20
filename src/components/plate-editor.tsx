@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { cn } from '@udecode/cn';
 import { Plate } from '@udecode/plate-common';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
@@ -15,22 +15,22 @@ import { FixedToolbarButtons } from '@/components/plate-ui/fixed-toolbar-buttons
 import { FloatingToolbar } from '@/components/plate-ui/floating-toolbar';
 import { FloatingToolbarButtons } from '@/components/plate-ui/floating-toolbar-buttons';
 
-const localStorageKey = 'plateEditorContent';
+const lsKey = 'plateEditorContent';
 
 export default function PlateEditor() {
   const containerRef = useRef(null);
+  const [initialValue, setInitialValue] = useState(() => {
+    if (typeof window === 'undefined') return [];
+    const saved = localStorage.getItem(lsKey);
+    return saved ? JSON.parse(saved) : [{ type: ELEMENT_PARAGRAPH, children: [{ text: '' }] }];
+  }
+  );
 
-  const initialValue = (localStorage.getItem(localStorageKey) === null ? [
-    {
-      type: ELEMENT_PARAGRAPH,
-      children: [{id: "1", type: "h1", children: [{text: "Welcome to Webnotes!", bold: true}]}],
-    },
-  ] : JSON.parse(localStorage.getItem(localStorageKey) || ''));
+  const handleChange = (newValue : any) => {
+    const content = JSON.stringify(newValue);
+    localStorage.setItem(lsKey, content);
 
-  const handleChange = (newValue: any) => {
-    localStorage.setItem(localStorageKey, JSON.stringify(newValue));
-  };
-
+  }
   return (
     <DndProvider backend={HTML5Backend}>
       <Plate plugins={plugins} initialValue={initialValue} onChange={handleChange}>
