@@ -37,7 +37,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <head />
+        <head>
+          <script defer src="https://woyage.app/track.js" data-website-id="c0201453-e781-4d70-8371-e215781c61c3"></script>
+          </head>
         <body
           className={cn(
             'min-h-screen bg-background font-sans antialiased',
