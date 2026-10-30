@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #171717;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #171717;
+  --muted: #fafafa;
+  --muted-foreground: #666666;
+  --accent: #f2f2f2;
+  --accent-foreground: #171717;
+  --destructive: #e5484d;
+  --border: #ebebeb;
+  --input: #d4d4d4;
+  --ring: #0070f3;
+  --info: #0070f3;
+  --sidebar: #fafafa;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #ededed;
+  --card: #0a0a0a;
+  --card-foreground: #ededed;
+  --popover: #0a0a0a;
+  --popover-foreground: #ededed;
+  --primary: #ededed;
+  --primary-foreground: #0a0a0a;
+  --secondary: #171717;
+  --secondary-foreground: #ededed;
+  --muted: #0a0a0a;
+  --muted-foreground: #a1a1a1;
+  --accent: #1a1a1a;
+  --accent-foreground: #ededed;
+  --destructive: #ff6166;
+  --border: #242424;
+  --input: #3a3a3a;
+  --ring: #52a8ff;
+  --info: #52a8ff;
+  --sidebar: #0a0a0a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-info: var(--info);
+  --color-sidebar: var(--sidebar);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  * { border-color: var(--border); }
+  html {
+    color-scheme: light dark;
+    -webkit-text-size-adjust: 100%; /* no font inflation in landscape */
+    -webkit-tap-highlight-color: transparent; /* we provide :active feedback instead */
+    overscroll-behavior: none; /* no pull-to-refresh / page rubber band; scroll areas opt in to contain */
+  }
+  html.dark { color-scheme: dark; }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  button { cursor: pointer; }
+  /* Controls, not content: no text selection or long-press callout. */
+  button, [role="button"], [role="option"], [role="switch"] {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  /* No 300ms tap delay / double-tap zoom on anything tappable. */
+  button, a, [role="button"], [role="option"], summary, label, select { touch-action: manipulation; }
+  /* Press feedback on every input type (hover is gated by Tailwind's hover: variant). */
+  button:not(:disabled), [role="button"] { transition: transform 100ms ease-out; }
+  button:not(:disabled):active, [role="button"]:active { transform: scale(0.97); }
+  @media (prefers-reduced-motion: reduce) { button:not(:disabled):active { transform: none; } }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  ::selection { background: color-mix(in oklab, var(--info) 25%, transparent); }
+}
+
+/* ---------- editor ---------- */
+.note-editor .tiptap {
+  outline: none;
+  min-height: 50vh;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  padding-bottom: 30vh;
+}
+.note-editor .tiptap > * + * { margin-top: 0.75em; }
+.note-editor .tiptap h1 { font-size: 2rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; margin-top: 1.6em; }
+.note-editor .tiptap h2 { font-size: 1.5rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; margin-top: 1.4em; }
+.note-editor .tiptap h3 { font-size: 1.2rem; line-height: 1.4; font-weight: 600; margin-top: 1.2em; }
+.note-editor .tiptap p.is-editor-empty:first-child::before,
+.note-editor .tiptap p.is-empty::before {
+  content: attr(data-placeholder);
+  color: var(--muted-foreground);
+  opacity: 0.6;
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+.note-editor .tiptap ul { list-style: disc; padding-left: 1.5rem; }
+.note-editor .tiptap ol { list-style: decimal; padding-left: 1.5rem; }
+.note-editor .tiptap li > p { margin: 0; }
+.note-editor .tiptap li + li { margin-top: 0.25em; }
+.note-editor .tiptap ul[data-type="taskList"] { list-style: none; padding-left: 0.25rem; }
+.note-editor .tiptap ul[data-type="taskList"] li { display: flex; gap: 0.6rem; align-items: flex-start; }
+.note-editor .tiptap ul[data-type="taskList"] li > label { margin-top: 0.35rem; user-select: none; }
+.note-editor .tiptap ul[data-type="taskList"] li > label input {
+  appearance: none; width: 1.05rem; height: 1.05rem; border-radius: 0.3rem;
+  border: 1.5px solid var(--input); background: var(--background); display: grid; place-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.note-editor .tiptap ul[data-type="taskList"] li > label input:checked {
+  background: var(--foreground); border-color: var(--foreground);
+}
+.note-editor .tiptap ul[data-type="taskList"] li > label input:checked::after {
+  content: ""; width: 0.3rem; height: 0.55rem; border: solid var(--background); border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg);
+}
+.note-editor .tiptap ul[data-type="taskList"] li[data-checked="true"] > div { color: var(--muted-foreground); text-decoration: line-through; }
+.note-editor .tiptap blockquote { border-left: 2px solid var(--input); padding-left: 1rem; color: var(--muted-foreground); }
+.note-editor .tiptap hr { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+.note-editor .tiptap a { color: var(--info); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.note-editor .tiptap code {
+  font-family: var(--font-mono); font-size: 0.88em; background: var(--secondary);
+  padding: 0.15em 0.4em; border-radius: 0.35rem;
+}
+.note-editor .tiptap pre {
+  font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.6; background: var(--muted);
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 0.9rem 1rem; overflow-x: auto;
+}
+.note-editor .tiptap pre code { background: none; padding: 0; font-size: inherit; }
+.note-editor .tiptap mark { background: var(--accent); color: inherit; border-radius: 0.2rem; padding: 0 0.1em; }
+.note-editor .tiptap img { max-width: 100%; border-radius: var(--radius); }
+.note-editor .tiptap table { border-collapse: collapse; width: 100%; }
+.note-editor .tiptap th, .note-editor .tiptap td { border: 1px solid var(--border); padding: 0.4rem 0.7rem; text-align: left; }
+
+/* highlight.js tokens (lowlight): restrained, two accents */
+.hljs-comment, .hljs-quote { color: var(--muted-foreground); }
+.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-type, .hljs-title, .hljs-section, .hljs-name { color: var(--foreground); font-weight: 600; }
+.hljs-string, .hljs-attr, .hljs-template-variable, .hljs-number, .hljs-built_in, .hljs-symbol { color: var(--info); }
+
+/* Motion only confirms a state change; none when the user prefers reduced motion. */
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.pop-in { animation: fade-in 0.1s ease-out; }
+@media (prefers-reduced-motion: reduce) { .pop-in { animation: none; } }
+
+.note-editor-compact .tiptap { min-height: 0; padding-bottom: 0; font-size: 1rem; }
+.note-editor-compact .tiptap > :first-child { margin-top: 0; }
+
+/* iOS zooms the page when focusing a field under 16px. Fix the size, never disable zoom. */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea:not(.note-title) {
+    font-size: 16px;
+  }
+}
+.note-editor-compact .tiptap { min-height: 10rem; }

@@ -1,65 +1,36 @@
-import { cn } from '@udecode/cn';
-import { Toaster } from "@/components/ui/sonner"
-
-import { fontSans } from '@/lib/fonts';
-import { TooltipProvider } from '@/components/plate-ui/tooltip';
-import { ThemeProvider } from '@/components/site/theme-provider';
-
-import '@/styles/globals.css';
-
-import { Metadata, Viewport } from 'next';
+import type { Metadata, Viewport } from "next";
+import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "sonner";
+import { RealtimeGate } from "@/components/realtime-gate";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Webnotes",
-    template: `%s - Webnotes`,
-  },
-  description: "Webnotes is a note-taking app for the web.",
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
+  title: { default: "Webnotes", template: "%s · Webnotes" },
+  description: "A fast, private markdown notebook with beautiful editing and one-click sharing.",
 };
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover", // paint under the notch; content pads back with env(safe-area-inset-*)
+  interactiveWidget: "resizes-content", // keyboard shrinks the layout viewport on Android too
+  colorScheme: "light dark",
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
 };
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
-        <head>
-          <script defer src="https://woyage.app/track.js" data-website-id="c0201453-e781-4d70-8371-e215781c61c3"></script>
-          </head>
-        <body
-          className={cn(
-            'min-h-screen bg-background font-sans antialiased',
-            '[&_.slate-selected]:!bg-primary/20 [&_.slate-selection-area]:border [&_.slate-selection-area]:border-primary [&_.slate-selection-area]:bg-primary/10',
-            fontSans.variable
-          )}
-        >
-          <ThemeProvider attribute="class" defaultTheme="light">
-            <Toaster />
-            <TooltipProvider
-              disableHoverableContent
-              delayDuration={500}
-              skipDelayDuration={0}
-            >
-              <div className="relative flex min-h-screen flex-col">
-                <div className="flex-1">
-                  {children}
-                </div>
-              </div>
-            </TooltipProvider>
+      <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
+        <body>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <RealtimeGate>{children}</RealtimeGate>
+            <Toaster position="bottom-right" richColors closeButton />
           </ThemeProvider>
         </body>
       </html>
